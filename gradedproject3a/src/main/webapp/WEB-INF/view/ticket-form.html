@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Ticket Tracker Application</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+<!--    &lt;!&ndash; Include TinyMCE script &ndash;&gt;-->
+<!--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+<!--    &lt;!&ndash; Initialize TinyMCE &ndash;&gt;-->
+<!--    <script>-->
+<!--        tinymce.init({-->
+<!--            selector: 'textarea#editor', // Replace #editor with the ID of your textarea-->
+<!--            plugins: 'advlist autolink lists link image charmap print preview anchor',-->
+<!--            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'-->
+<!--        });-->
+<!--    </script>-->
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'),{
+                toolbar: {
+            items: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'underline',
+                'strikethrough',
+                'subscript',
+                'superscript',
+                '|',
+                'fontColor',
+                'fontBackgroundColor',
+                '|',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'alignment',
+                '|',
+                'undo',
+                'redo'
+            ]
+        },
+        language: 'en'
+        })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+</head>
+
+<body>
+<div th:insert="navbar :: navbar"></div>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Create New Ticket </h1>
+            <div class="card-body">
+                <form method="POST" th:action="@{/ticket/save}" th:object="${ticket}">
+
+                    <input th:field="*{id}" type="hidden"/>
+                    <input th:field="*{createdOn}" type="hidden"/>
+
+                    <div class="form-group">
+                        <label>Title </label>
+                        <input class="form-control" name="ticketTitle" placeholder="Enter ticket title" th:field="*{ticketTitle}"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Short Description </label>
+                        <input class="form-control" name="shortDescription" placeholder="Enter short description" th:field="*{shortDescription}"
+                               type="text"/>
+                    </div>
+
+<!--                    <div class="form-group">-->
+<!--                       <label>Content </label>-->
+<!--                        <input class="form-control" name="content" placeholder="Enter content" th:field="*{content}"-->
+<!--                               type="text"/>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label>Content</label>-->
+<!--                        &lt;!&ndash; Replace the input with a textarea for TinyMCE &ndash;&gt;-->
+<!--                        <textarea id="editor" name="content" class="form-control" placeholder="Enter content" th:field="*{content}"></textarea>-->
+<!--                    </div>-->
+
+                    <div class="form-group">
+                        <label for="editor">Content</label>
+                        <!-- Replace the textarea with CKEditor -->
+                        <textarea id="editor" name="content" class="form-control" placeholder="Enter content" th:field="*{content}"></textarea>
+                    </div>
+
+                    <div class="box-footer">
+                        <button class="btn btn-primary" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+                <hr>
+                <a th:href="@{/ticket/list}">Back to Ticket Listing</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

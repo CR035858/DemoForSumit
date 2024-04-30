@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NavigationBar</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" th:fragment="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/ticket/list}">Ticket Tracker System</a>
+        </div>
+        <ul class="nav navbar-nav mr-auto">
+            <li><a class="nav-link" th:href="@{/ticket/list}">Ticket List</a></li>
+
+            <li><a class="nav-link" th:href="@{/ticket/showTicketForm_Save}">Add Ticket</a></li>
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <form method="post" th:action="@{/logout}">
+                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>
